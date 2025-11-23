@@ -1,0 +1,22 @@
+ssh_servers:
+  - name: "stage"
+    host: "1.1.1.1"
+    port: "22"
+    user: "user"
+    # password: "123"
+    key_file: "/home/user/.ssh/id_rsa"
+
+tunnels:
+  # Local Forwarding: Listen on local 8080, forward to remote localhost:80 via "stage" server
+  # Equivalent to: ssh -L 8080:localhost:80 user@1.1.1.1
+  - server_name: "stage"
+    local_addr: "localhost:8080"
+    remote_addr: "localhost:80"
+    mode: "local"
+
+  # Remote Forwarding: Listen on remote 9090, forward to local localhost:3000 via "stage" server
+  # Equivalent to: ssh -R 9090:localhost:3000 user@1.1.1.1
+  - server_name: "stage"
+    local_addr: "localhost:3000"
+    remote_addr: "0.0.0.0:9090"
+    mode: "remote"
